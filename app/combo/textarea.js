@@ -46,7 +46,7 @@ export default function Area() {
   const completedTodo = useMemo(() => {
     return todos.filter((t) => {
       return t.isCompleted;
-    });
+    })
   }, [todos]);
   const notcompletedTodo = useMemo(() => {
     return todos.filter((t) => {
@@ -67,7 +67,7 @@ export default function Area() {
   // {get localstorage}
   useEffect(() => {
     dispatch({type:"get",payload:isCompletedd})
-  }, []);
+  }, [todos]);
   // {get localstorage}
 
   // {add todo function}
