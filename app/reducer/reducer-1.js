@@ -50,9 +50,9 @@ export default function Reducer(addtodo, action) {
             isCompleted: !t.isCompleted,
           };
           return updateTodo;
-        } else {
+        } 
           return t;
-        }
+        
       });
       localStorage.setItem("todos", JSON.stringify(ch));
       return ch;

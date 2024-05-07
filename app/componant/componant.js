@@ -31,7 +31,7 @@ export default function Text({ todo, delw, ediw }) {
 
   // {check function}
   function c() {
-    dispatch({ type: "complete", payload: { id: todo.id } });
+    dispatch({ type: "complete", payload: todo });
   }
 
   // {check function}

@@ -1,4 +1,3 @@
-"use client";
 import { createContext, useReducer } from "react";
 import Reducer1 from "../reducer/reducer-1";
 export const TodosContext = createContext([]);

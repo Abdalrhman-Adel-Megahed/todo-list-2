@@ -1,4 +1,5 @@
 "use client";
+"use strict";
 // {navbar-import}
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -35,72 +36,66 @@ export default function Area() {
   const [todo, setTodo] = useState(null);
   const [completedTodos, setCompletedTodos] = useState("all");
   const [todoupdate, setTodoupdate] = useState({ title: "", discription: "" });
+  
   function s(e) {
     setCompletedTodos(e.target.value);
   }
-  const completedTodo = useMemo(() => {
-    todos.filter((t) => {
-      return t.isCompleted;
-    });
-  }, [todos]);
-  const notcompletedTodo = useMemo(() => {
-    todos.filter((t) => {
-      return !t.isCompleted;
-    });
-  }, [todos]);
+  
+  const completedTodo = useMemo(() => todos.filter((t) => t.isCompleted), [todos]);
+  
+  const notcompletedTodo = useMemo(() => todos.filter((t) => !t.isCompleted), [todos]);
+  
   let isCompletedd = todos;
-  if (completedTodos == "completed") {
+  
+  if (completedTodos === "completed") {
     isCompletedd = completedTodo;
-  } else if (completedTodos == "not-completed") {
+  } else if (completedTodos === "not-completed") {
     isCompletedd = notcompletedTodo;
   } else {
     isCompletedd = todos;
   }
-  // {get localstorage}
+  
   useEffect(() => {
     dispatch({ type: "get", payload: isCompletedd });
   }, []);
-  // {get localstorage}
   
-  const text = isCompletedd.map((t) => {
-  return (<Text key={t.id} todo={t} delw={delw} ediw={ediw} />);
-});
-// {add todo function}
-  let todooo = todo;
+  const text = isCompletedd.map((t) => (
+    <Text key={t.id} todo={t} delw={delw} ediw={ediw} />
+  ));
+  
   function delw(todo) {
     setTodo(todo);
     setOpenn(true);
   }
-  // {open edit dilog}
+  
   function ediw(todo) {
     setTodo(todo);
     setOpen(true);
   }
-  // {open edit dilog}
+  
   function deletee() {
-    dispatch({ type: "delete", payload: { id: todooo.id } });
-
+    dispatch({ type: "delete", payload: { id: todo.id } });
     setOpenn(false);
   }
-  // {edit function}
+  
   function U() {
     dispatch({
       type: "update",
       payload: {
-        id: todooo.id,
+        id: todo.id,
         title: todoupdate.title,
         discription: todoupdate.discription,
       },
     });
-
     setOpen(false);
   }
-  // {edit function}
+  
   function add() {
     dispatch({ type: "addtodo", payload: { title: input } });
-
     setInput("");
   }
+
+ 
 
   // {add todo function}
   return (
