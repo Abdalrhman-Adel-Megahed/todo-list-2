@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Master from "./componant/master";
 import "./componant/stay.css";
-import { context } from "./componant/context";
 import { v4 as uuidv4 } from "uuid";
 import TodosProvider from "./componant/reduceContext";
 const info = [

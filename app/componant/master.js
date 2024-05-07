@@ -1,6 +1,5 @@
 import Area from "./textarea";
 import "./stay.css";
-import DeleteMasagee from "./context";
 export default function Master(){
 return(<>
     <div className="master" style={{backgroundColor:"white",width:"45%", borderRadius:"6px",display: "flex",

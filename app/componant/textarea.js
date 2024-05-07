@@ -29,14 +29,12 @@ import { TodosContext } from "./reduceContext";
 // {hokes import}
 export default function Area() {
   const { todos, dispatch } = useContext(TodosContext);
-  // const { todos, setTodos } = useContext(context);
   const [input, setInput] = useState("");
   const [openn, setOpen] = useState(false);
   const [open, setOpenn] = useState(false);
   const [todo, setTodo] = useState(null);
   const [completedTodos, setCompletedTodos] = useState("all");
   const [todoupdate, setTodoupdate] = useState({ title: "", discription: "" });
-  // const[todoss,dispatch]=useReducer(Reducer1,[])
   function s(e) {
     setCompletedTodos(e.target.value);
   }
@@ -58,16 +56,16 @@ export default function Area() {
   } else {
     isCompletedd = todos;
   }
-  const text = isCompletedd.map((t) => {
-    return <Text key={t.id} todo={t} delw={delw} ediw={ediw} />;
-  });
   // {get localstorage}
   useEffect(() => {
     dispatch({ type: "get", payload: isCompletedd });
   }, []);
   // {get localstorage}
-
-  // {add todo function}
+  
+  const text = isCompletedd.map((t) => {
+  return (<Text key={t.id} todo={t} delw={delw} ediw={ediw} />);
+});
+// {add todo function}
   let todooo = todo;
   function delw(todo) {
     setTodo(todo);
