@@ -1,11 +1,10 @@
 "use client";
-import { useState } from "react";
-import Master from "./combo/master";
-import "./combo/stay.css";
-import { context } from "./combo/context";
+import React, { useState } from "react";
+import Master from "./componant/master";
+import "./componant/stay.css";
+import { context } from "./componant/context";
 import { v4 as uuidv4 } from "uuid";
-import { context2 } from "./combo/context2";
-import { context3 } from "./combo/context3";
+import TodosProvider from "./componant/reduceContext";
 const info = [
   {
     id: uuidv4(),
@@ -28,7 +27,7 @@ const info = [
 ];
 export default function Home() {
   const [todos, setTodos] = useState(info);
-  const[todo,setTodo]=useState({todos})
+  const [todo, setTodo] = useState({ todos });
 
   return (
     <div
@@ -41,11 +40,9 @@ export default function Home() {
         height: "600px",
       }}
     >
-      <context3.Provider value={{todo, setTodo}}>
-      <context.Provider value={{ todos, setTodos }}>
+      <TodosProvider>
         <Master />
-      </context.Provider>
-      </context3.Provider>
+      </TodosProvider>
     </div>
   );
 }

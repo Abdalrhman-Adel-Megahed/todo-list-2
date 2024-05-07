@@ -1,15 +1,12 @@
+"use client";
 // {navbar-import}
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Box from "@mui/material/Box";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // {navbar-import}
 
 // {icon-import}
-import CheckIcon from "@mui/icons-material/Check";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
+
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 // {iconimport}
@@ -19,37 +16,37 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { v4 as uuidv4 } from "uuid";
+
 // {dilog-import}
 // {style import}
 import "./stay.css";
 // {style import}
-
+import React from "react";
 // {hokes import}
 import Text from "./componant";
-import { useEffect, useState, useMemo, useContext ,useReducer} from "react";
-import { context } from "./context";
-import Reducer1 from "../reducers/reducer-1";
+import { useEffect, useState, useMemo, useContext } from "react";
+import { TodosContext } from "./reduceContext";
 // {hokes import}
 export default function Area() {
-  const { todoss, setTodos } = useContext(context);
+  const { todos, dispatch } = useContext(TodosContext);
+  // const { todos, setTodos } = useContext(context);
   const [input, setInput] = useState("");
   const [openn, setOpen] = useState(false);
   const [open, setOpenn] = useState(false);
   const [todo, setTodo] = useState(null);
   const [completedTodos, setCompletedTodos] = useState("all");
   const [todoupdate, setTodoupdate] = useState({ title: "", discription: "" });
-  const[todos,dispatch]=useReducer(Reducer1,[])
+  // const[todoss,dispatch]=useReducer(Reducer1,[])
   function s(e) {
     setCompletedTodos(e.target.value);
   }
   const completedTodo = useMemo(() => {
-    return todos.filter((t) => {
+    todos.filter((t) => {
       return t.isCompleted;
-    })
+    });
   }, [todos]);
   const notcompletedTodo = useMemo(() => {
-    return todos.filter((t) => {
+    todos.filter((t) => {
       return !t.isCompleted;
     });
   }, [todos]);
@@ -66,8 +63,8 @@ export default function Area() {
   });
   // {get localstorage}
   useEffect(() => {
-    dispatch({type:"get",payload:isCompletedd})
-  }, [todos]);
+    dispatch({ type: "get", payload: isCompletedd });
+  }, []);
   // {get localstorage}
 
   // {add todo function}
@@ -83,22 +80,27 @@ export default function Area() {
   }
   // {open edit dilog}
   function deletee() {
-   dispatch({type: "delete",payload:{id:todooo.id}})
-    setOpenn(false);
+    dispatch({ type: "delete", payload: { id: todooo.id } });
 
-   
-    
+    setOpenn(false);
   }
   // {edit function}
   function U() {
-    dispatch({type:"update",payload:{id:todooo.id,title:todoupdate.title,discription:todoupdate.discription}})
+    dispatch({
+      type: "update",
+      payload: {
+        id: todooo.id,
+        title: todoupdate.title,
+        discription: todoupdate.discription,
+      },
+    });
+
     setOpen(false);
-    
   }
   // {edit function}
   function add() {
-    dispatch({type: "addtodo", payload:{title: input}})
-    // {set localstorage}
+    dispatch({ type: "addtodo", payload: { title: input } });
+
     setInput("");
   }
 

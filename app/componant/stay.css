@@ -1,0 +1,41 @@
+.check:hover{
+    background-color: #ececec !important;
+    }
+    .check{
+        transition: all 0.2s;
+    
+    }
+    .edit{
+        transition: all 0.2s;
+    
+    }
+    .delete{
+        transition: all 0.2s;
+    
+    }
+    
+    
+    .edit:hover{
+    background-color: #ececec !important;
+        
+    }
+    .delete:hover{
+    background-color: #ececec !important;
+    
+    }
+    
+      html{
+        font-family: '__Kanit_926fda';
+      }
+     .text{
+        transition: all 0.2s;
+     }
+      .text:hover{
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+      }
+      @media (max-width:480px) {
+        .master{
+          width: 100% !important;
+        }
+      }
