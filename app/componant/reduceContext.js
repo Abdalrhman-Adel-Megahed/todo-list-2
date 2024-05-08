@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { createContext, useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,8 +26,8 @@ const info = [
   },
 ];
 const TodosProvider = ({ children }) => {
-  const [todos, todosDispatch] = useReducer(Reducer,info);
-  
+  const [todos, todosDispatch] = useReducer(Reducer, info);
+
   return (
     <DispatContext.Provider value={{ todoss: todos, dispatch: todosDispatch }}>
       {children}

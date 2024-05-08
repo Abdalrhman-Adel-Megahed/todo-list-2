@@ -7,7 +7,6 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 // {icon-import}
 
-
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 // {iconimport}
@@ -17,7 +16,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { v4 as uuidv4 } from "uuid";
 
 // {dilog-import}
 // {style import}
@@ -27,29 +25,33 @@ import React from "react";
 // {hokes import}
 import Text from "./componant";
 import { useEffect, useState, useMemo, useContext } from "react";
-import { DispatContext, TodosContext } from "./reduceContext";
+import { DispatContext } from "./reduceContext";
 // {hokes import}
 export default function Area() {
-  const {todoss,dispatch} = useContext(DispatContext);
-  const { todos, setTodos} = useContext(TodosContext);
+  const { todoss, dispatch } = useContext(DispatContext);
+  // const { todos, setTodos} = useContext(TodosContext);
   const [input, setInput] = useState("");
   const [openn, setOpen] = useState(false);
   const [open, setOpenn] = useState(false);
   const [todo, setTodo] = useState(null);
   const [completedTodos, setCompletedTodos] = useState("all");
   const [todoupdate, setTodoupdate] = useState({ title: "", discription: "" });
-  console.log(todoss);
+
   function s(e) {
     setCompletedTodos(e.target.value);
-
   }
-  
+
   let isCompletedd = todoss;
-  const completedTodo = useMemo(() => todoss.filter((t) => t.isCompleted), [todoss]);
-  
-  const notcompletedTodo = useMemo(() => todoss.filter((t) => !t.isCompleted), [todoss]);
-  
-  
+  const completedTodo = useMemo(
+    () => todoss.filter((t) => t.isCompleted),
+    [todoss]
+  );
+
+  const notcompletedTodo = useMemo(
+    () => todoss.filter((t) => !t.isCompleted),
+    [todoss]
+  );
+
   if (completedTodos === "completed") {
     isCompletedd = completedTodo;
   } else if (completedTodos === "not-completed") {
@@ -57,41 +59,40 @@ export default function Area() {
   } else {
     isCompletedd = todoss;
   }
-  
+
   useEffect(() => {
-    
-    dispatch({ type: "get", payload: isCompletedd });
-   
-  //   const getUpdate =
-  //   JSON.parse(localStorage.getItem("todos")) ?? isCompletedd;
-  // setTodos(getUpdate);
+    dispatch({ type: "get" });
+
+    //   const getUpdate =
+    //   JSON.parse(localStorage.getItem("todos")) ?? isCompletedd;
+    // setTodos(getUpdate);
   }, []);
-  
+
   const text = isCompletedd.map((t) => (
     <Text key={t.id} todo={t} delw={delw} ediw={ediw} />
   ));
-  
+
   function delw(todo) {
     setTodo(todo);
     setOpenn(true);
   }
-  
+
   function ediw(todo) {
     setTodo(todo);
     setOpen(true);
   }
-  
+
   function deletee() {
     dispatch({ type: "delete", payload: { id: todo.id } });
-  
+
     // const deleteee = todos.filter((t) => {
     //   return t.id != todo.id;
     // });
     // setTodos(deleteee);
     // localStorage.setItem("todos", JSON.stringify(deleteee));
-    setOpenn(false);
+    // setOpenn(false);
   }
-  
+
   function U() {
     dispatch({
       type: "update",
@@ -113,14 +114,14 @@ export default function Area() {
     //     return t;
     //   }
     // });
-    // setTodos(u); 
+    // setTodos(u);
     // localStorage.setItem("todos", JSON.stringify(u));
     setOpen(false);
   }
-  
+
   function add() {
     dispatch({ type: "addtodo", payload: { title: input } });
-    
+
     // const newText = {
     //   id: uuidv4(),
     //   title: input,
@@ -132,10 +133,7 @@ export default function Area() {
     // localStorage.setItem("todos", JSON.stringify(updateTodo));
     // setTodos(updateTodo); // updateTodo;
     setInput("");
-
   }
-
- 
 
   // {add todo function}
   return (

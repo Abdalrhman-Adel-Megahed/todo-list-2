@@ -1,22 +1,22 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 export default function Input() {
-return (
+  return (
     <>
-    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         <Button
-        style={{ margin: "10px", backgroundColor: "#0c2ec2" }}
-        variant="contained"
+          style={{ margin: "10px", backgroundColor: "#0c2ec2" }}
+          variant="contained"
         >
-        Contained
+          Contained
         </Button>
         <TextField
-        style={{ margin: "10px", width: "100%" }}
-        id="outlined-basic"
-        label="add title"
-        variant="outlined"
+          style={{ margin: "10px", width: "100%" }}
+          id="outlined-basic"
+          label="add title"
+          variant="outlined"
         />
-    </div>
+      </div>
     </>
-);
+  );
 }

@@ -1,9 +1,6 @@
-"use strict"
 import { v4 as uuidv4 } from "uuid";
 
 export default function Reducer(addtodo, action) {
-  
-  
   switch (action.type) {
     case "addtodo": {
       const newText = {
@@ -12,8 +9,8 @@ export default function Reducer(addtodo, action) {
         discription: "",
         isCompleted: false,
       };
-      // {set localstorage}
       const updateTodo = [...addtodo, newText];
+      // {set localstorage}
       localStorage.setItem("todos", JSON.stringify(updateTodo));
       return updateTodo;
     }
@@ -40,8 +37,7 @@ export default function Reducer(addtodo, action) {
       return u;
     }
     case "get": {
-      const getUpdate =
-        JSON.parse(localStorage.getItem("todos")) ?? action.payload.task;
+      const getUpdate = JSON.parse(localStorage.getItem("todos")) ?? addtodo;
       return getUpdate;
     }
     case "complete": {
@@ -52,9 +48,8 @@ export default function Reducer(addtodo, action) {
             isCompleted: !t.isCompleted,
           };
           return updateTodo;
-        } 
-          return t;
-        
+        }
+        return t;
       });
       localStorage.setItem("todos", JSON.stringify(ch));
       return ch;

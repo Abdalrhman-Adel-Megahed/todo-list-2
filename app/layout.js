@@ -12,10 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TodosProvider>
-        {children}
-        </TodosProvider>
-        </body>
+        <TodosProvider>{children}</TodosProvider>
+      </body>
     </html>
   );
 }
