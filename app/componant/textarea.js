@@ -17,6 +17,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { v4 as uuidv4 } from "uuid";
 
 // {dilog-import}
 // {style import}
@@ -26,37 +27,44 @@ import React from "react";
 // {hokes import}
 import Text from "./componant";
 import { useEffect, useState, useMemo, useContext } from "react";
-import { TodosContext } from "./reduceContext";
+import { DispatContext, TodosContext } from "./reduceContext";
 // {hokes import}
 export default function Area() {
-  const { todos, dispatch } = useContext(TodosContext);
+  const {todoss,dispatch} = useContext(DispatContext);
+  const { todos, setTodos} = useContext(TodosContext);
   const [input, setInput] = useState("");
   const [openn, setOpen] = useState(false);
   const [open, setOpenn] = useState(false);
   const [todo, setTodo] = useState(null);
   const [completedTodos, setCompletedTodos] = useState("all");
   const [todoupdate, setTodoupdate] = useState({ title: "", discription: "" });
-  
+  console.log(todoss);
   function s(e) {
     setCompletedTodos(e.target.value);
+
   }
   
-  const completedTodo = useMemo(() => todos.filter((t) => t.isCompleted), [todos]);
+  let isCompletedd = todoss;
+  const completedTodo = useMemo(() => todoss.filter((t) => t.isCompleted), [todoss]);
   
-  const notcompletedTodo = useMemo(() => todos.filter((t) => !t.isCompleted), [todos]);
+  const notcompletedTodo = useMemo(() => todoss.filter((t) => !t.isCompleted), [todoss]);
   
-  let isCompletedd = todos;
   
   if (completedTodos === "completed") {
     isCompletedd = completedTodo;
   } else if (completedTodos === "not-completed") {
     isCompletedd = notcompletedTodo;
   } else {
-    isCompletedd = todos;
+    isCompletedd = todoss;
   }
   
   useEffect(() => {
+    
     dispatch({ type: "get", payload: isCompletedd });
+   
+  //   const getUpdate =
+  //   JSON.parse(localStorage.getItem("todos")) ?? isCompletedd;
+  // setTodos(getUpdate);
   }, []);
   
   const text = isCompletedd.map((t) => (
@@ -75,6 +83,12 @@ export default function Area() {
   
   function deletee() {
     dispatch({ type: "delete", payload: { id: todo.id } });
+  
+    // const deleteee = todos.filter((t) => {
+    //   return t.id != todo.id;
+    // });
+    // setTodos(deleteee);
+    // localStorage.setItem("todos", JSON.stringify(deleteee));
     setOpenn(false);
   }
   
@@ -87,12 +101,38 @@ export default function Area() {
         discription: todoupdate.discription,
       },
     });
+
+    // const u = todos.map((t) => {
+    //   if (t.id == todo.id) {
+    //     return {
+    //       ...t,
+    //       title:todoupdate.title,
+    //       discription: todoupdate.discription,
+    //     };
+    //   } else {
+    //     return t;
+    //   }
+    // });
+    // setTodos(u); 
+    // localStorage.setItem("todos", JSON.stringify(u));
     setOpen(false);
   }
   
   function add() {
     dispatch({ type: "addtodo", payload: { title: input } });
+    
+    // const newText = {
+    //   id: uuidv4(),
+    //   title: input,
+    //   discription: "",
+    //   isCompleted: false,
+    // };
+    // // {set localstorage}
+    // const updateTodo = [...todos, newText];
+    // localStorage.setItem("todos", JSON.stringify(updateTodo));
+    // setTodos(updateTodo); // updateTodo;
     setInput("");
+
   }
 
  

@@ -7,14 +7,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import * as React from "react";
 // {iconimport}
 // {dilog-import}
+import { v4 as uuidv4 } from "uuid";
 
 // {dilog-import}
 import { useContext, useReducer } from "react";
 import "./stay.css";
-import { TodosContext } from "./reduceContext";
+import { DispatContext, TodosContext } from "./reduceContext";
 export default function Text({ todo, delw, ediw }) {
-  const { todos, dispatch } = useContext(TodosContext);
-
+  const { todos, setTodos } = useContext(TodosContext);
+const{todoss,dispatch} = useContext(DispatContext);
   function ediw2() {
     ediw(todo);
   }
@@ -31,7 +32,15 @@ export default function Text({ todo, delw, ediw }) {
 
   // {check function}
   function c() {
+    
     dispatch({ type: "complete", payload: todo });
+    // const ch = todos.map((t) => {
+    //   if (t.id == todo.id) {
+    //       t.isCompleted =!t.isCompleted;
+    //   }return t; 
+    // });
+    // setTodos (ch);
+    // localStorage.setItem("todos", JSON.stringify(ch));
   }
 
   // {check function}
