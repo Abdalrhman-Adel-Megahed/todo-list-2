@@ -1,12 +1,12 @@
 "use client";
-"use strict";
 // {navbar-import}
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // {navbar-import}
 
 // {icon-import}
-
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 // {iconimport}
@@ -16,7 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import { Toastcontext } from "./toastcontext";
 // {dilog-import}
 // {style import}
 import "./stay.css";
@@ -26,16 +26,18 @@ import React from "react";
 import Text from "./componant";
 import { useEffect, useState, useMemo, useContext } from "react";
 import { DispatContext } from "./reduceContext";
+import Toast from "./toast";
 // {hokes import}
 export default function Area() {
   const { todoss, dispatch } = useContext(DispatContext);
   // const { todos, setTodos} = useContext(TodosContext);
   const [input, setInput] = useState("");
-  const [openn, setOpen] = useState(false);
-  const [open, setOpenn] = useState(false);
+  const [oopen, setOpen] = useState(false);
+  const [openn, setOpenn] = useState(false);
   const [todo, setTodo] = useState(null);
   const [completedTodos, setCompletedTodos] = useState("all");
   const [todoupdate, setTodoupdate] = useState({ title: "", discription: "" });
+  const { showhidetoast } = useContext(Toastcontext);
 
   function s(e) {
     setCompletedTodos(e.target.value);
@@ -69,7 +71,7 @@ export default function Area() {
   }, []);
 
   const text = isCompletedd.map((t) => (
-    <Text key={t.id} todo={t} delw={delw} ediw={ediw} />
+    <Text key={t.id} todo={t} delw={delw} ediw={ediw} closse={Snackbar} />
   ));
 
   function delw(todo) {
@@ -90,7 +92,8 @@ export default function Area() {
     // });
     // setTodos(deleteee);
     // localStorage.setItem("todos", JSON.stringify(deleteee));
-    // setOpenn(false);
+    setOpenn(false);
+    showhidetoast("Deleted Successfully", "error");
   }
 
   function U() {
@@ -117,6 +120,7 @@ export default function Area() {
     // setTodos(u);
     // localStorage.setItem("todos", JSON.stringify(u));
     setOpen(false);
+    showhidetoast("Updated Successfully", "info");
   }
 
   function add() {
@@ -133,6 +137,7 @@ export default function Area() {
     // localStorage.setItem("todos", JSON.stringify(updateTodo));
     // setTodos(updateTodo); // updateTodo;
     setInput("");
+    showhidetoast("todo added", "success");
   }
 
   // {add todo function}
@@ -168,8 +173,7 @@ export default function Area() {
       {/* {text-area} */}
       <div>
         <Dialog
-          open={open}
-          keepMounted
+          open={openn}
           onClose={() => {
             setOpenn(false);
           }}
@@ -202,7 +206,7 @@ export default function Area() {
       {/* {edit-masseeg} */}
       <div>
         <Dialog
-          open={openn}
+          open={oopen}
           onClose={() => {
             setOpen(false);
           }}

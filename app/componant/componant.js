@@ -9,8 +9,10 @@ import * as React from "react";
 import { useContext } from "react";
 import "./stay.css";
 import { DispatContext } from "./reduceContext";
+import { Toastcontext } from "./toastcontext";
 export default function Text({ todo, delw, ediw }) {
   // const { todos, setTodos } = useContext(TodosContext);
+  const { showhidetoast } = useContext(Toastcontext);
   const { todoss, dispatch } = useContext(DispatContext);
   function ediw2() {
     ediw(todo);
@@ -30,6 +32,7 @@ export default function Text({ todo, delw, ediw }) {
     // });
     // setTodos (ch);
     // localStorage.setItem("todos", JSON.stringify(ch));
+    showhidetoast("Task Completed", "success");
   }
 
   // {check function}
@@ -82,7 +85,7 @@ export default function Text({ todo, delw, ediw }) {
             }}
             className="edit"
             style={{
-              color: "orange",
+              color: "#007dff",
               backgroundColor: "white",
               border: "solid",
             }}
